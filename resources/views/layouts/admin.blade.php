@@ -7,7 +7,10 @@
 	<div id="app">
 		@include('blocks.header')
 		@include('blocks.side_header')
-		@yield('content')
+  	<div class="content-wrapper">
+			@yield('content')
+		</div>
+		@include('blocks.footer')
 		<script src="{{ asset('js/main.js') }}"></script>
 		@yield('scripts')
 	</div>
