@@ -9,7 +9,7 @@
 		{!! Form::model($prize, ['action'=>['AdministratorPrizesController@update', $prize->id],'method'=>'patch']) !!}
 				<div class="form-group">
 					<label>Name:</label>
-					{!! Form::text('name', null, ['class'=>'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder'=>'Draw Prize Name']) !!}
+					{!! Form::text('name', null, ['class'=>'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder'=>'Draw Prize Name', 'required'=>true]) !!}
 					 @error('name')
 		          <span class="invalid-feedback" role="alert">
 		              <strong>{{ $message }}</strong>

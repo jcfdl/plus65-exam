@@ -21,6 +21,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/administrator', 'AdministratorsController@index')->name('admin.home');
+	Route::post('/administrator/add', 'AdministratorsController@create')->name('admin.create');
+	Route::post('/administrator/draw', 'AdministratorsController@draw')->name('admin.draw');
+
 	// prizes
 	Route::get('/administrator/prizes', 'AdministratorPrizesController@index')->name('admin.prizes');
 	Route::post('/administrator/prizes/add', 'AdministratorPrizesController@create')->name('admin.prizes.create');
