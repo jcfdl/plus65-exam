@@ -29,6 +29,14 @@ class HomeController extends Controller
   }
 
   public function check(Request $request) {
+    $draw = Draw::where('status', 1)->first();
 
+    $member = DrawGroup::where('draw_member_id', $request->id)->first();
+    if($member) {
+      $request->session()->flash('member_found', 'You have won a prize!');
+    } else {
+      $request->session()->flash('member_not_found', 'You did not won a prize!');
+    }
+    return view('home.check', compact('member', 'draw'));
   }
 }
