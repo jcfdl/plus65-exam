@@ -21,4 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function() {
 	Route::get('/administrator', 'AdministratorsController@index')->name('admin.home');
+	// prizes
+	Route::get('/administrator/prizes', 'AdministratorPrizesController@index')->name('admin.prizes');
+	Route::post('/administrator/prizes/add', 'AdministratorPrizesController@create')->name('admin.prizes.create');
+	Route::get('/administrator/prizes/{id}/edit', 'AdministratorPrizesController@edit')->name('admin.prizes.edit');
+	Route::patch('/administrator/prizes/{id}/update', 'AdministratorPrizesController@update');
+	Route::get('/administrator/prizes/{id}/delete', 'AdministratorPrizesController@destroy')->name('admin.prizes.delete');
+
 });
