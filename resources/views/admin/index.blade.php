@@ -8,40 +8,46 @@
 		<div class="alert alert-info" role="alert">
 			<strong>Information!</strong> {{session('draw_maked')}}
 		</div>
+	@elseif(Session::has('draw_deleted'))
+		<div class="alert alert-danger" role="alert">
+			<strong>Warning!</strong> {{session('draw_deleted')}}
+		</div>
 	@endif
   <div class="card p-3 mb-3">
   	<div class="mb-2">
 	  	@if($draw)
-				<a href="#" class="btn btn-danger"><i class="fas fa-check"></i> Finish Lucky Draw</a>
+				<a href="{{ route('admin.delete', $draw->id) }}" class="btn btn-danger"><i class="fas fa-check"></i> Finish Lucky Draw</a>
 	  	@else	  	
 				<button type="button" class="btn btn-success" data-toggle="modal" data-target="#addDraw"><i class="fas fa-star"></i> Start Lucky Draw</button>
 	  	@endif
 	  </div>
-	  <h4>Draw Name: {{ $draw->name }}</h4>
-	  <h4>Draw Winners</h4>
-	  {!! Form::open(['action'=>'AdministratorsController@draw', 'method'=>'post']) !!}
-			<div class="form-group">
-				<label>Draw Prize:</label>
-				{!! Form::select('draw_prize_id', [''=>'Select draw prize'] + $prizes, null, ['class'=>'form-control w-25', 'required'=>true]) !!}
-			</div>
-			<div class="form-group">
-				<label>Generate Number:</label>
-				{!! Form::select('gen_number', [1=>'Yes', 2=>'No'], old('gen_number'), ['class'=>'form-control w-25', 'id'=>'generate_number']) !!}
-			</div>
-			<div class="form-group">
-				<label>Winning Number:</label>
-				{!! Form::number('number', null, ['class'=>'form-control w-25' . ($errors->has('number') ? ' is-invalid' : ''), 'id'=>'form_number', 'placeholder'=>'Enter winning number', 'disabled'=>true, 'required'=>false, 'min'=>1000, 'max'=>9999]) !!}
-				{!! Form::hidden('draw_id', $draw->id) !!}
-				@error('number')
-          <span class="invalid-feedback" role="alert">
-              <strong>{{ $message }}</strong>
-          </span>
-        @enderror
-			</div>
-			<div class="form-group">
-				{!! Form::submit('Draw', ['class'=>'btn btn-info']) !!}
-			</div>
-	  {!! Form::close() !!}
+	  <h4>Draw Name: {{ $draw ? $draw->name : 'No lucky draw started yet!' }}</h4>
+	  @if($draw)
+		  <h4>Draw Winners</h4>
+		  {!! Form::open(['action'=>'AdministratorsController@draw', 'method'=>'post']) !!}
+				<div class="form-group">
+					<label>Draw Prize:</label>
+					{!! Form::select('draw_prize_id', [''=>'Select draw prize'] + $prizes, null, ['class'=>'form-control w-25', 'required'=>true]) !!}
+				</div>
+				<div class="form-group">
+					<label>Generate Number:</label>
+					{!! Form::select('gen_number', [1=>'Yes', 2=>'No'], old('gen_number'), ['class'=>'form-control w-25', 'id'=>'generate_number']) !!}
+				</div>
+				<div class="form-group">
+					<label>Winning Number:</label>
+					{!! Form::number('number', null, ['class'=>'form-control w-25' . ($errors->has('number') ? ' is-invalid' : ''), 'id'=>'form_number', 'placeholder'=>'Enter winning number', 'disabled'=>true, 'required'=>false, 'min'=>1000, 'max'=>9999]) !!}
+					{!! Form::hidden('draw_id', $draw->id) !!}
+					@error('number')
+	          <span class="invalid-feedback" role="alert">
+	              <strong>{{ $message }}</strong>
+	          </span>
+	        @enderror
+				</div>
+				<div class="form-group">
+					{!! Form::submit('Draw', ['class'=>'btn btn-info']) !!}
+				</div>
+		  {!! Form::close() !!}
+		@endif
 	  <h4>Winners</h4>
 	  <table class="table table-bordered">
 	  	<thead>
@@ -62,7 +68,7 @@
 					@endforeach
 	  		@else
 					<tr>
-						<td colspan="100">No winners yet</td>
+						<td colspan="100">Not drawn yet!</td>
 					</tr>
 	  		@endif
 	  	</tbody>

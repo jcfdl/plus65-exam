@@ -25,3 +25,7 @@ mix.styles([
 	'resources/css/icheck-bootstrap.min.css',
 	'resources/css/adminlte.min.css',
 	], './public/css/main.css');
+
+mix.styles([
+	'resources/css/home.css',
+	], './public/css/home.css');

@@ -54,4 +54,10 @@ class AdministratorsController extends Controller
     DrawGroup::create($input);
     return redirect()->back();
 	}
+
+	public function destroy($id) {
+		Draw::findOrFail($id)->update(['status'=>0]);
+    session()->flash('draw_deleted', 'The lucky draw has finished! Start again to start lucky draw!');
+		return redirect()->back();
+	}
 }
