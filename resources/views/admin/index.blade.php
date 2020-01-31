@@ -12,6 +12,10 @@
 		<div class="alert alert-danger" role="alert">
 			<strong>Warning!</strong> {{session('draw_deleted')}}
 		</div>
+	@elseif(Session::has('draw_member_won'))
+		<div class="alert alert-danger" role="alert">
+			<strong>Warning!</strong> {{session('draw_member_won')}}
+		</div>
 	@endif
   <div class="card p-3 mb-3">
   	<div class="mb-2">
@@ -22,7 +26,7 @@
 	  	@endif
 	  </div>
 	  <h4>Draw Name: {{ $draw ? $draw->name : 'No lucky draw started yet!' }}</h4>
-	  @if($draw)
+	  @if($draw && count($members) > 0)
 		  <h4>Draw Winners</h4>
 		  {!! Form::open(['action'=>'AdministratorsController@draw', 'method'=>'post']) !!}
 				<div class="form-group">
@@ -35,7 +39,7 @@
 				</div>
 				<div class="form-group">
 					<label>Winning Number:</label>
-					{!! Form::number('number', null, ['class'=>'form-control w-25' . ($errors->has('number') ? ' is-invalid' : ''), 'id'=>'form_number', 'placeholder'=>'Enter winning number', 'disabled'=>true, 'required'=>false, 'min'=>1000, 'max'=>9999]) !!}
+					{!! Form::number('number', null, ['class'=>'form-control w-25' . ($errors->has('number') ? ' is-invalid' : ''), 'id'=>'form_number', 'placeholder'=>'Enter winning number', 'disabled'=>true, 'required'=>false]) !!}
 					{!! Form::hidden('draw_id', $draw->id) !!}
 					@error('number')
 	          <span class="invalid-feedback" role="alert">
@@ -47,6 +51,8 @@
 					{!! Form::submit('Draw', ['class'=>'btn btn-info']) !!}
 				</div>
 		  {!! Form::close() !!}
+		@else
+			<h4>No registered members yet!</h4>
 		@endif
 	  <h4>Winners</h4>
 	  <table class="table table-bordered">

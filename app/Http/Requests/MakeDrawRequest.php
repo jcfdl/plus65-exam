@@ -32,7 +32,7 @@ class MakeDrawRequest extends FormRequest
           return [
             'draw_id' => 'required',
             'draw_prize_id' => 'required',
-            'number' => 'required|integer|min:1000|max:9999'
+            'number' => 'required|regex:/[0-9]+/|size:4'
           ];  
         }
     }
