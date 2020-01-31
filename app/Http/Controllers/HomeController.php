@@ -20,7 +20,7 @@ class HomeController extends Controller
     return view('home.index', compact('draw', 'winners'));
   }
 
-  public function register(RegisterRequest $request) {
+  public function join(RegisterRequest $request) {
     $input = $request->all();
     $input['name'] = ucfirst($request->name);
     $member = DrawMember::create($input);

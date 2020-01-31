@@ -40,7 +40,7 @@
 					</div>
 				@endif
 				<h5>Fill up the form to join lucky draw!</h5>
-				{!! Form::open(['action'=>'HomeController@register', 'method'=>'post', 'id'=>'reg_form']) !!}			
+				{!! Form::open(['action'=>'HomeController@join', 'method'=>'post', 'id'=>'reg_form']) !!}			
 					<div class="form-group">
 						<label for="name" class="cols-sm-2 control-label">Your Name</label>
 						<div class="cols-sm-10">

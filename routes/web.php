@@ -17,7 +17,7 @@ Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index')->name('home.index');
-Route::post('/register', 'HomeController@register');
+Route::post('/join', 'HomeController@join');
 Route::post('/check', 'HomeController@check');
 // Route::get('/home', 'HomeController@index')->name('home');
 
